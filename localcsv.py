@@ -1,3 +1,4 @@
+
 import pandas as pd
 import os
 
@@ -23,8 +24,6 @@ def convert_excel_to_csv(folder_path):
 if __name__ == "__main__":
     folder_path = os.path.join(os.getcwd(), "files")
     convert_excel_to_csv(folder_path)
-
-
 
 # import pandas as pd
 # import os
@@ -55,3 +54,7 @@ if __name__ == "__main__":
 #     # Adjust folder path relative to this Python file
 #     folder_path = os.path.join(os.getcwd(), "/Users/dhyeysutariya/Developer/preprocessors/files")
 #     convert_xls_to_csv(folder_path)
+
+
+# soffice --headless --convert-to pdf --outdir ./converted ./files/example.pptx 
+# convert into pdf cmd 
