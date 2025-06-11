@@ -3,3 +3,10 @@ __pycache__/
 *.xlsx
 *.xls
 *.csv
+*.mp3
+*.mp4
+*.mov
+*.heic
+*.jpg
+*.jpeg
+*.png
