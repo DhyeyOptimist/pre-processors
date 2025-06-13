@@ -2,6 +2,15 @@ import os
 import google.generativeai as genai
 from dotenv import load_dotenv
 from load_converted_data import extract_csv_summary
+from load_converted_data import extract_csv_summary, extract_pdf_text
+from load_converted_data import extract_csv_summary, extract_pdf_text, extract_image_info
+from load_converted_data import (
+    extract_csv_summary,
+    extract_pdf_text,
+    extract_image_info,
+    extract_audio_video_info,  # 👈 add this
+)
+
 
 # Load API key from .env file
 load_dotenv()
@@ -17,21 +26,37 @@ if not api_key:
     exit()
 
 genai.configure(api_key=api_key)
-model = genai.GenerativeModel(model_name="models/gemma-3-1b-it")
+model = genai.GenerativeModel(model_name="models/gemini-2.0-flash")
 
-# Load optional context
 
 if os.path.exists("context.txt"):
     with open("context.txt", "r") as file:
         context = file.read().strip()
         print("📄 Context loaded from context.txt\n")
         converted_path = "/Users/dhyeysutariya/Developer/preprocessors/converters/converted"
-        context = extract_csv_summary(converted_path)
+        csv_context = extract_csv_summary(converted_path)
+        pdf_context = extract_pdf_text(converted_path)
+        image_context = extract_image_info(converted_path)
+        media_context = extract_audio_video_info(converted_path)
 
-        if context:
-            print("📄 CSV context loaded.\n")
-        else:
-            print("📭 No CSV files found.\n")
+        if csv_context:
+            context += "🧾 CSV Summary:\n" + csv_context + "\n\n"
+        if pdf_context:
+            context += "📄 PDF Text:\n" + pdf_context + "\n\n"
+        if image_context:
+            context += "🖼️ Image Info:\n" + image_context + "\n\n"
+        if media_context:
+            context += "🎵 Media Files:\n" + media_context + "\n\n"
+
+if context:
+    print("📄 Context loaded from converted/ folder.\n")
+else:
+    print("📭 No supported files found in converted/.\n")
+
+if context:
+    print("📄 Context loaded from converted/ folder.\n")
+else:
+    print("📭 No CSV or PDF files found.\n")
 # Chat loop
 print("💬 Gemini CLI Chat | Type 'exit' to quit")
 while True:
