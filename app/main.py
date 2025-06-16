@@ -11,6 +11,7 @@ import pandas as pd # pandas: Data manipulation library - used to convert Excel 
 import subprocess # subprocess: Used to run external programs (LibreOffice for document conversion)
 import tempfile # tempfile: Creates temporary files and directories for file conversion process
 import shutil # shutil: High-level file operations - used to clean up temporary directories
+from typing import Tuple
 
 
 # Ubuntu/Debian
@@ -151,6 +152,57 @@ def convert_heic_to_jpg_memory(file_content: bytes, filename: str) -> tuple[byte
         
     except Exception as e:
         raise Exception(f"Failed to convert HEIC to JPG: {str(e)}")
+# hevc for iphone vidoes to mp4 ( not req rn proablt if somenes want to add in future they can )
+# def convert_hevc_to_mp4_moviepy(file_content: bytes, filename: str) -> Tuple[bytes, str]:
+#     """
+#     Convert HEVC file content to MP4 using moviepy
+#     Returns: (converted_mp4_bytes, new_filename)
+#     """
+#     try:
+#         from moviepy.editor import VideoFileClip
+        
+#         # Create temporary files
+#         with tempfile.NamedTemporaryFile(suffix='.hevc', delete=False) as temp_input:
+#             temp_input.write(file_content)
+#             temp_input_path = temp_input.name
+        
+#         with tempfile.NamedTemporaryFile(suffix='.mp4', delete=False) as temp_output:
+#             temp_output_path = temp_output.name
+        
+#         try:
+#             # Load video and convert
+#             clip = VideoFileClip(temp_input_path)
+#             clip.write_videofile(
+#                 temp_output_path,
+#                 codec='libx264',
+#                 audio_codec='aac',
+#                 temp_audiofile='temp-audio.m4a',
+#                 remove_temp=True
+#             )
+#             clip.close()
+            
+#             # Read converted file
+#             with open(temp_output_path, 'rb') as f:
+#                 mp4_content = f.read()
+            
+#             # Generate new filename
+#             new_filename = os.path.splitext(filename)[0] + ".mp4"
+            
+#             return mp4_content, new_filename
+            
+#         finally:
+#             # Clean up temporary files
+#             try:
+#                 os.unlink(temp_input_path)
+#             except:
+#                 pass
+#             try:
+#                 os.unlink(temp_output_path)
+#             except:
+#                 pass
+                
+#     except Exception as e:
+#         raise Exception(f"Failed to convert HEVC to MP4: {str(e)}")
 
 @app.post("/upload-file/")
 async def upload_file(file: UploadFile = File(...)):
