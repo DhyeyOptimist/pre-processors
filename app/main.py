@@ -4,13 +4,13 @@ from fastapi.responses import JSONResponse
 import os
 import google.generativeai as genai
 from dotenv import load_dotenv
-import io
-from PIL import Image
-import pillow_heif
-import pandas as pd
-import subprocess
-import tempfile
-import shutil
+import io 
+from PIL import Image # PIL (Python Imaging Library): Used for image processing and manipulation
+import pillow_heif # pillow_heif: Extension for PIL to handle HEIC/HEIF image formats (iPhone photos)
+import pandas as pd # pandas: Data manipulation library - used to convert Excel files to CSV format
+import subprocess # subprocess: Used to run external programs (LibreOffice for document conversion)
+import tempfile # tempfile: Creates temporary files and directories for file conversion process
+import shutil # shutil: High-level file operations - used to clean up temporary directories
 
 
 # Ubuntu/Debian
@@ -22,8 +22,6 @@ import shutil
 # Windows
 # Download from https://www.libreoffice.org/
 # Load API key
-
-
 load_dotenv()
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
@@ -38,7 +36,7 @@ uploaded_files_store = {}
 
 def convert_office_to_pdf_memory(file_content: bytes, filename: str) -> tuple[bytes, str]:
     """
-    Convert Office documents (PPTX, DOCX, ODT, etc.) to PDF using LibreOffice
+    Convert Office documents (PPTX, ODT, etc.) to PDF using LibreOffice
     Returns: (converted_pdf_bytes, new_filename)
     """
     temp_dir = None
