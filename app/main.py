@@ -209,7 +209,7 @@ async def upload_file(file: UploadFile = File(...)):
                 )
         
         # Check if file is Office document and convert to PDF
-        elif file.filename.lower().endswith(('.pptx', '.ppt', '.docx', '.doc', '.odt', '.odp', '.ods')):
+        elif file.filename.lower().endswith(('.pptx', '.ppt', '.odt', '.odp', '.ods')):
             print(f"[INFO] Converting Office document: {file.filename}")
             try:
                 # Convert Office document to PDF
