@@ -192,7 +192,7 @@ def convert_heic_to_jpg_memory(file_content: bytes, filename: str) -> tuple[byte
             
 #         finally:
 #             # Clean up temporary files
-#             try:
+#             try: 
 #                 os.unlink(temp_input_path)
 #             except:
 #                 pass
